@@ -1,0 +1,7 @@
+.btn-navbar { 
+    color: rgba(255,255,255,.55);
+    &:hover {
+        cursor: pointer;
+        color: white;
+    }
+}

@@ -1,0 +1,54 @@
+<div class="card my-2">
+    <div class="card-header text-light d-flex align-items-center">
+        <button type="button" class="btn btn-primary mr-2" (click)="btnBackOnClick()">
+            <fa-icon [icon]="['fas', 'arrow-circle-left']" style="color: white"></fa-icon>
+          </button>
+        <span class="page-title">{{ pageTitle }}</span>
+    </div>
+</div>
+
+<div class="card my-2">
+    <form [formGroup]="deviceForm" class="m-4">
+        <div class="mb-3">
+            <label for="selCategory" class="form-label">*Category</label>
+            <select
+                class="form-control form-select"
+                id="selCategory"
+                formControlName="categoryId">
+                <option *ngFor="let category of listCategories" value="{{ category.id }}">
+                    {{ category.name }}
+                </option>
+            </select>
+            <label *ngIf="categoryIdControlIsInvalid" class="small text-danger">Category field is obrigatory</label>
+        </div>
+        <div class="mb-3">
+            <label for="txtColor" class="form-label">*Color</label>
+            <input
+                type="text"
+                class="form-control"
+                id="txtColor"
+                formControlName="color"/>
+            <label *ngIf="colorControlIsInvalid" class="small text-danger">Color field is obrigatory</label>
+        </div>
+        <div class="mb-3">
+            <label for="txtPartNumber" class="form-label">*Part Number</label>
+            <input
+                type="number"
+                class="form-control"
+                id="txtPartNumber"
+                formControlName="partNumber"/>
+            <label *ngIf="partNumberControlIsInvalid" class="small text-danger">Part Number field is obrigatory</label>
+            <label *ngIf="negativeValidator()" class="small text-danger">Part Number must be a positive value</label>
+        </div>
+    </form>
+    <div class="m-4">
+        <button
+            *ngIf="showSaveButton"
+            type="button"
+            class="ml-auto btn btn-success float-right"
+            (click)="saveDevice()">
+            <fa-icon [icon]="['fas', 'save']" style="color: white"></fa-icon>
+            Save Device
+        </button>
+    </div>
+</div>

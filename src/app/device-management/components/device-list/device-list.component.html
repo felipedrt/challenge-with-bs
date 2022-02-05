@@ -1,0 +1,103 @@
+<div class="card my-2">
+    <div class="card-header text-light d-flex align-items-center">
+      <span class="page-title">Device Management</span>
+      <button type="button" class="ml-auto btn btn-success" (click)="btnNewDeviceOnClick()">
+        <fa-icon [icon]="['fas', 'plus']" style="color: white"></fa-icon>
+        New Device
+      </button>
+    </div>
+  
+    <div class="card-body">
+      <div class="row">
+        <div [hidden]="!loading" class="col-12 my-2">
+          <div class="d-flex justify-content-center">
+            <div class="spinner-border text-primary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </div>
+        <div [hidden]="loading" class="col-12 my-2">
+          <table
+            datatable
+            [dtOptions]="dtOptions"
+            [dtTrigger]="dtTrigger"
+            class="table table-hover"
+          >
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Category</th>
+                <th scope="col">Color</th>
+                <th scope="col">Part Number</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let device of listDevices">
+                <td>{{ device.id }}</td>
+                <td>{{ device.name }}</td>
+                <td>{{ device.color }}</td>
+                <td>{{ device.partNumber }}</td>
+                <td>
+                  <button
+                    type="button"
+                    (click)="btnVisualizeDeviceOnClick(device)"
+                    class="btn btn-primary"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="Visualizar"
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'binoculars']"
+                      style="color: white"
+                    ></fa-icon>
+                  </button>
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    (click)="btnEditDeviceOnClick(device)"
+                    class="btn btn-secondary"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="Edit"
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'edit']"
+                      style="color: white"
+                    ></fa-icon>
+                  </button>
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    (click)="btnRemoveDeviceOnClick(template, device)"
+                    class="btn btn-danger"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="Remover"
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'trash']"
+                      style="color: white"
+                    ></fa-icon>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Are you sure that you want to remove this record?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()" >Yes</button>
+    <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
+  </div>
+</ng-template>
+  

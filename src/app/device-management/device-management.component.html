@@ -1,0 +1,16 @@
+<app-device-list
+    #deviceListComponent
+    *ngIf="sqlAccessMode == sqlAccessModeHtml.List"
+    (newDeviceEventEmitter)="new()"
+    (editDeviceEventEmitter)="edit($event)"
+    (visualizeDeviceEventEmitter)="visualize($event)"
+>
+</app-device-list>
+
+<app-device-crud
+    *ngIf="sqlAccessMode != sqlAccessModeHtml.List"
+    [pageTitle]="pageTitle"
+    [selectedItem]="selectedItem"
+    [sqlAccessModeEnum]="sqlAccessMode"
+    (backToPageEventEmitter)="backToPage()">
+</app-device-crud>

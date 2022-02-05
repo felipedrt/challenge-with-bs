@@ -1,0 +1,117 @@
+<div class="card my-2">
+    <div class="card-header text-light d-flex align-items-center">
+      <span class="page-title">Category Management</span>
+      <button type="button" class="ml-auto btn btn-success" (click)="btnNewCategoryOnClick(templateCrud)">
+        <fa-icon [icon]="['fas', 'plus']" style="color: white"></fa-icon>
+        New Category
+      </button>
+    </div>
+  
+    <div class="card-body">
+      <div class="row">
+        <div [hidden]="!loading" class="col-12 my-2">
+          <div class="d-flex justify-content-center">
+            <div class="spinner-border text-primary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </div>
+        <div [hidden]="loading" class="col-12 my-2">
+          <table
+            datatable
+            [dtOptions]="dtOptions"
+            [dtTrigger]="dtTrigger"
+            class="table table-hover"
+          >
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let category of listCategories">
+                <td>{{ category.id }}</td>
+                <td>{{ category.name }}</td>
+                <td>
+                  <button
+                    type="button"
+                    (click)="btnEditCategoryOnClick(templateCrud, category)"
+                    class="btn btn-secondary"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="Edit"
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'edit']"
+                      style="color: white"
+                    ></fa-icon>
+                  </button>
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    (click)="btnRemoveCategoryOnClick(templateRemove, category)"
+                    class="btn btn-danger"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="Remover"
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'trash']"
+                      style="color: white"
+                    ></fa-icon>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<ng-template #templateRemove>
+  <div class="modal-body text-center">
+    <p>Are you sure that you want to remove this record?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()" >Yes</button>
+    <button type="button" class="btn btn-primary" (click)="closeModal()" >No</button>
+  </div>
+</ng-template>
+
+<ng-template #templateCrud>
+  <div class="modal-content" style="width: 450px;">
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">{{ modalCrudTitle }}</h4>
+      <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="categoryForm" class="m-4">
+        <div class="mb-3">
+          <label for="txtCategoryName" class="form-label">*Name</label>
+          <input
+              type="text"
+              class="form-control"
+              id="txtCategoryName"
+              formControlName="name"/>
+          <label *ngIf="nameControlIsInvalid" class="small text-danger">Name field is obrigatory</label>
+        </div>
+      </form>
+      <div class="m-4">
+        <button
+            type="button"
+            class="ml-auto btn btn-success float-right"
+            (click)="saveCategory()">
+            Save Category
+        </button>
+    </div>
+    </div>
+  </div>
+</ng-template>
+
+
+  
